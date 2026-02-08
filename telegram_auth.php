@@ -162,10 +162,10 @@ try {
                 $fname = trim($first . ' ' . $last);
                 $who = $fname !== '' ? $fname : ($tUser !== '' ? '@' . $tUser : 'friend');
                 $human = $expAt->format('j M Y');
-                $msg = "⛔ <b>Your BabaChecker Premium expired</b>\n" .
+                $msg = "⛔ <b>Your Ethnix Premium expired</b>\n" .
                     "Hi <b>{$who}</b>, your plan expired on <b>{$human}</b>. " .
                     "Your account is now <code>FREE</code>, credits set to <b>10</b>.\n\n" .
-                    "➡️ You can upgrade anytime from <a href=\"https://babachecker.com/app/buy\">Buy Premium</a>.";
+                    "➡️ You can upgrade anytime from <a href=\"https://ethnix.net/app/buy\">Buy Premium</a>.";
                 App\Telegram::sendMessage($botToken, $tgId, $msg, 'HTML');
             }
         }
@@ -186,12 +186,12 @@ if ($announceChat !== '') {
     $roleLabel = Telegram::roleLabel($status);
     if ($created) {
         $text = "🎉 <b>New member</b>: <b>{$displaySafe}</b> [{$roleLabel}]\n" .
-            "Welcome to <b>BabaChecker</b> — glad to have you here! 👋\n" .
-            "➡️ <a href=\"https://babachecker.com/\">Login to BabaChecker</a>";
+            "Welcome to <b>Ethnix</b> — glad to have you here! 👋\n" .
+            "➡️ <a href=\"https://ethnix.net/\">Login to Ethnix</a>";
     }
     else {
-        $text = "🌟 <b>{$displaySafe}</b> [{$roleLabel}] just signed in to <b>BabaChecker</b>.\n" .
-            "Let’s make some hits today. ➡️ <a href=\"https://babachecker.com/\">Open Dashboard</a>\n";
+        $text = "🌟 <b>{$displaySafe}</b> [{$roleLabel}] just signed in to <b>Ethnix</b>.\n" .
+            "Let’s make some hits today. ➡️ <a href=\"https://ethnix.net/\">Open Dashboard</a>\n";
     }
     Telegram::sendMessage($botToken, $announceChat, $text, 'HTML'); // ignore errors
 }

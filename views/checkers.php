@@ -46,7 +46,7 @@ $maxThreadsByPlan = ($status === 'premium' || $status === 'admin') ? 5 : 1;
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>All-in-One Checker • BabaChecker</title>
+<title>All-in-One Checker • Ethnix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -301,7 +301,7 @@ $maxThreadsByPlan = ($status === 'premium' || $status === 'admin') ? 5 : 1;
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- LEFT: Controls -->
     <section class="lg:col-span-2 glass card-shadow p-8">
-      <h2 class="text-2xl section-title mb-6">BabaChecker Checkers & Multi APIs</h2>
+      <h2 class="text-2xl section-title mb-6">Ethnix Checkers & Multi APIs</h2>
 
     <!-- Hidden inline selects: we’ll configure them from the modal -->
     <div id="inlineConfigRow" class="grid sm:grid-cols-3 gap-6">

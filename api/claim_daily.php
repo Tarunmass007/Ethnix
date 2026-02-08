@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 
 require_once __DIR__ . '/../app/Bootstrap.php';
@@ -29,7 +29,7 @@ $me = $st->fetch(PDO::FETCH_ASSOC);
 if (!$me) out(false, ['error'=>'NO_USER']);
 
 if (strtolower((string)$me['status']) === 'banned') {
-  out(false, ['error'=>'BANNED','message'=>"You're banned from babachecker"]);
+  out(false, ['error'=>'BANNED','message'=>"You're banned from Ethnix"]);
 }
 
 $amount = 50; // প্রতিদিন কত ক্রেডিট

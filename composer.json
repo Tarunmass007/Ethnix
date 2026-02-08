@@ -1,5 +1,5 @@
 {
-  "name": "babachecker/secure-login",
+  "name": "ethnix/secure-login",
   "type": "project",
   "require": {
     "php": ">=8.1",

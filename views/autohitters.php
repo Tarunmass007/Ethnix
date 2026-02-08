@@ -51,7 +51,7 @@ $maxThreadsByPlan = ($status === 'premium' || $status === 'admin') ? 1 : 1;
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Auto Hitters • BabaChecker</title>
+<title>Auto Hitters • Ethnix</title>
 
 <!-- ==========================
      SECTION 2: FONTS & LIBS
@@ -312,7 +312,7 @@ $maxThreadsByPlan = ($status === 'premium' || $status === 'admin') ? 1 : 1;
          SECTION 3: LEFT PANEL (AUTOHITTER CONTROLS)
     =========================== -->
     <section class="lg:col-span-2 glass card-shadow p-8">
-      <h2 class="text-2xl section-title mb-6">BabaChecker AutoHitter</h2>
+      <h2 class="text-2xl section-title mb-6">Ethnix AutoHitter</h2>
 
       <!-- (Hidden) inline config row - driven via modal -->
       <div id="inlineConfigRow" class="grid sm:grid-cols-3 gap-6">

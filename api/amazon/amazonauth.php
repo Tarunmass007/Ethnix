@@ -34,7 +34,7 @@ $userStatus = strtoupper($userData['status'] ?? 'FREE');
 $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : ''));
 $currentCredits = (int)$userData['credits'];
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using babachecker.']);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.']);
     exit;
 }
 if ($currentCredits < 2) { // Adjusted to 2 credits for FastSpring Auth
@@ -375,11 +375,11 @@ if(substr($cc,0,1) == '5'){
   $tipo = 'amex';
   $tipocard = 'Amex';
 }
-// Versões do Chrome
+// Vers?es do Chrome
 $chromeVersions = ['116.0.0.0', '115.0.0.0', '114.0.0.0'];
-// Versões do Edge
+// Vers?es do Edge
 $edgeVersions = ['116.0.1938.69', '115.0.1916.77', '114.0.1803.45'];
-// Escolhendo versões aleatórias
+// Escolhendo vers?es aleat?rias
 $randomChromeVersion = $chromeVersions[array_rand($chromeVersions)];
 $randomEdgeVersion = $edgeVersions[array_rand($edgeVersions)];
 // Montando o User-Agent
@@ -996,7 +996,7 @@ if(is_numeric($cc) && strlen($cc) == 16 || is_numeric($cc) && strlen($cc) == 15)
     // Process Prime signup and response
     $mesgirespfim = prime_teste($cookiesa, $last, $datajson);
     deletecard($datajson); // Clean up card
-    if (strpos($mesgirespfim, 'BILLING_ADDRESS_RESTRICTED') !== false || strpos($mesgirespfim, 'Non è stato possibile completare la tua iscrizione a Prime. Ti consigliamo di riprovare durante il proceso di checkout.') !== false) {
+    if (strpos($mesgirespfim, 'BILLING_ADDRESS_RESTRICTED') !== false || strpos($mesgirespfim, 'Non ? stato possibile completare la tua iscrizione a Prime. Ti consigliamo di riprovare durante il proceso di checkout.') !== false) {
         $err = 'Authorised (00)';
         $new_credits = updateCredits($pdo, $uid, 3, false, true);
         $fullResult =
@@ -1012,7 +1012,7 @@ if(is_numeric($cc) && strlen($cc) == 16 || is_numeric($cc) && strlen($cc) == 15)
             "[?] <b>Country ?</b> {$country_info}\n" .
             "???????????\n" .
             "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-            "[?] <b>Dev ?</b> babachecker";
+            "[?] <b>Dev ?</b> Ethnix";
         $publicMessage =
             "<b>Hit Detected ?</b>\n" .
             "????????\n" .
@@ -1021,7 +1021,7 @@ if(is_numeric($cc) && strlen($cc) == 16 || is_numeric($cc) && strlen($cc) == 15)
             "<b>Response ?</b> {$err} ??\n" .
             "<b>Gateway ?</b> Amazon Auth\n" .
             "????????\n" .
-            "<b>Hit From ?</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+            "<b>Hit From ?</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
         // Send messages and log results
         if (!empty($telegramId)) {

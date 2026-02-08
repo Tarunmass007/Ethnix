@@ -13,7 +13,7 @@ $pageKey = $pageKey ?? ($view ?? 'dashboard');
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= isset($title)? htmlspecialchars($title, ENT_QUOTES) : 'BabaChecker' ?></title>
+  <title><?= isset($title)? htmlspecialchars($title, ENT_QUOTES) : 'Ethnix' ?></title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -226,12 +226,12 @@ $pageKey = $pageKey ?? ($view ?? 'dashboard');
         
         <!-- Left: Logo & Nav -->
         <div class="flex items-center gap-6">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-emerald-400 flex items-center justify-center shadow">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM7.5 12l2.5 2.5L16.5 8l1.5 1.5-8 8L6 13.5 7.5 12z"/></svg>
+          <a href="/app/dashboard" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 flex items-center justify-center rounded-xl overflow-hidden" style="background: transparent;">
+              <img src="/assets/ethnix-logo.png" alt="Ethnix" class="h-9 w-auto object-contain" style="mix-blend-mode: screen; filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.5));">
             </div>
-            <div class="font-semibold hidden sm:block">BabaChecker</div>
-          </div>
+            <div class="font-semibold hidden sm:block text-slate-200 group-hover:text-[var(--neon-primary)] transition-colors">Ethnix</div>
+          </a>
 
           <!-- Desktop Horizontal Nav -->
           <nav class="hidden lg:flex items-center gap-1 text-sm bg-white/5 rounded-2xl p-1 border border-white/5">

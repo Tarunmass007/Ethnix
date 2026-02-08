@@ -18,7 +18,7 @@ $BOT_TOKEN     = $_ENV['TELEGRAM_BOT_TOKEN']        ?? '';
 $ANNOUNCE_CHAT = $_ENV['TELEGRAM_ANNOUNCE_CHAT_ID'] ?? '';
 
 /* ---------- tiny log + telegram helpers ---------- */
-$LOG_FILE = '/www/wwwroot/babachecker.com/storage/logs/redeem.log';
+$LOG_FILE = dirname(__DIR__) . '/storage/logs/redeem.log';
 
 @is_dir(dirname($LOG_FILE)) || @mkdir(dirname($LOG_FILE), 0775, true);
 function logerr(string $m){ global $LOG_FILE; @file_put_contents($LOG_FILE,'['.date('c')."] $m\n",FILE_APPEND); }
@@ -47,10 +47,10 @@ function utf8_first_char(string $s): string { if (function_exists('mb_substr')) 
 function utf8_upper(string $s): string { if (function_exists('mb_strtoupper')) return mb_strtoupper($s, 'UTF-8'); return strtoupper($s); }
 function mask_public_name(string $who): string { $name = trim(ltrim($who,'@')); if($name==='') return 'U***'; $f = utf8_first_char($name); return utf8_upper($f).'***'; }
 function mask_redeem_code(string $code): string {
-  // keep prefix 'BABACHECKER-' & suffix '-XXXX', mask middle
+  // keep prefix 'ETHNIX-' & suffix '-XXXX', mask middle
   $c = trim($code);
-  if ($c==='') return 'B********';
-  if (preg_match('~^(BABACHECKER-)(.+)(-CREDITS|-FREE|-PREMIUM)$~i', $c, $m)) {
+  if ($c==='') return 'E********';
+  if (preg_match('~^(ETHNIX-|BABACHECKER-)(.+)(-CREDITS|-FREE|-PREMIUM)$~i', $c, $m)) {
     $body = $m[2];
     $keepL = 4; $keepR = 3;
     $masked = substr($body,0,$keepL) . str_repeat('X', max(0, strlen($body)-$keepL-$keepR)) . substr($body,-$keepR);
@@ -172,7 +172,7 @@ New Expiry ➜ ".($newExpiry ?: '—')."
 Redeemed At ➜ {$when}
 ━ ━ ━ ━ ━ ━ ━ ━ ━ ━
 
-Thanks for using BabaChecker.";
+Thanks for using Ethnix.";
     tg_send($BOT_TOKEN, $tgId, $dm, 'HTML');
   }
 

@@ -30,7 +30,7 @@ $userStatus = strtoupper($userData['status'] ?? 'FREE');
 $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : ''));
 $currentCredits = (int)$userData['credits'];
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using BabaChecker.']);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.']);
     exit;
 }
 if ($currentCredits < 1) { // Adjusted to 1 credit for Braintree Auth
@@ -276,7 +276,7 @@ if (
         "[ﾒ] <b>Country ➜</b> {$binInfo['country_info']}\n" .
         "━━━━━━━━━━━\n" .
         "[ﾒ] <b>Checked By ➜</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[ㇺ] <b>Dev ➜</b> BabaChecker";
+        "[ㇺ] <b>Dev ➜</b> Ethnix";
 
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
@@ -290,7 +290,7 @@ if (
         "<b>Response ➜</b> {$err} 🎉\n" .
         "<b>Gateway ➜</b> Braintree Auth\n" .
         "━━━━━━━━\n" .
-        "<b>Hit From ➜</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+        "<b>Hit From ➜</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode([
@@ -322,7 +322,7 @@ if (
         "[ﾒ] <b>Country ➜</b> {$binInfo['country_info']}\n" .
         "━━━━━━━━━━━\n" .
         "[ﾒ] <b>Checked By ➜</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[ㇺ] <b>Dev ➜</b> BabaChecker";
+        "[ㇺ] <b>Dev ➜</b> Ethnix";
 
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
@@ -336,7 +336,7 @@ if (
         "<b>Response ➜</b> {$err}\n" .
         "<b>Gateway ➜</b> Braintree Auth\n" .
         "━━━━━━━━\n" .
-        "<b>Hit From ➜</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+        "<b>Hit From ➜</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode([
@@ -368,7 +368,7 @@ if (
         "[ﾒ] <b>Country ➜</b> {$binInfo['country_info']}\n" .
         "━━━━━━━━━━━\n" .
         "[ﾒ] <b>Checked By ➜</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[ㇺ] <b>Dev ➜</b> BabaChecker";
+        "[ㇺ] <b>Dev ➜</b> Ethnix";
 
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
@@ -382,7 +382,7 @@ if (
         "<b>Response ➜</b> {$err}\n" .
         "<b>Gateway ➜</b> Braintree Auth\n" .
         "━━━━━━━━\n" .
-        "<b>Hit From ➜</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+        "<b>Hit From ➜</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode([

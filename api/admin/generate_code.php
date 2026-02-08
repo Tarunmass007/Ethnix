@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../app/Bootstrap.php';
@@ -71,7 +71,7 @@ try {
   for ($i=0; $i<$count; $i++) {
     $codeBody = rand_code().'-'.rand_code();
     // keep status suffix uppercase to match DB enum
-    $code = "babachecker-{$codeBody}-{$status}";
+    $code = "ETHNIX-{$codeBody}-{$status}";
     $ins->execute([$code, $status, $credits, $expiryDate]);
     $codes[] = $code;
   }

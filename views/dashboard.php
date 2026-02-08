@@ -252,8 +252,59 @@ declare(strict_types=1);
 </div>
 <?php endif; ?>
 
-
-
+<!-- Ethnix Community Links -->
+<div class="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 animate-delay-4" style="background: rgba(10,10,10,0.6); border-color: rgba(57,255,20,0.15);">
+  <div class="flex items-center gap-2 mb-4">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(57, 255, 20, 0.1); border: 1px solid var(--neon-primary);">
+      <svg class="w-4 h-4" style="color: var(--neon-primary);" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+    </div>
+    <h3 class="text-lg font-semibold text-slate-200">❄️ Ethnix Community ❄️</h3>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <a href="https://ethnix.net" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-[var(--neon-primary)] hover:bg-white/5 transition-all group">
+      <span class="text-2xl">💎</span>
+      <div>
+        <div class="font-medium text-slate-200 group-hover:text-[var(--neon-primary)]">HQ Web Based Checker</div>
+        <div class="text-sm text-slate-400">ethnix.net</div>
+      </div>
+    </a>
+    <a href="https://t.me/EthnixRobot" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-[var(--neon-primary)] hover:bg-white/5 transition-all group">
+      <span class="text-2xl">💰</span>
+      <div>
+        <div class="font-medium text-slate-200 group-hover:text-[var(--neon-primary)]">HQ Bot Based Checker</div>
+        <div class="text-sm text-slate-400">@EthnixRobot</div>
+      </div>
+    </a>
+    <a href="https://t.me/+cGs5AYCdCz40YTll" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-[var(--neon-primary)] hover:bg-white/5 transition-all group">
+      <span class="text-xl">⚡</span>
+      <div>
+        <div class="font-medium text-slate-200 group-hover:text-[var(--neon-primary)]">Ethnix Updates™</div>
+        <div class="text-sm text-slate-400">Click Here</div>
+      </div>
+    </a>
+    <a href="https://t.me/+xlgKp4jlLNNmMWZl" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-[var(--neon-primary)] hover:bg-white/5 transition-all group">
+      <span class="text-xl">⚡</span>
+      <div>
+        <div class="font-medium text-slate-200 group-hover:text-[var(--neon-primary)]">Ethnix LogNet™</div>
+        <div class="text-sm text-slate-400">Click Here</div>
+      </div>
+    </a>
+    <a href="https://t.me/+lMEwd9pf2S5mMDdl" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-[var(--neon-primary)] hover:bg-white/5 transition-all group">
+      <span class="text-xl">⚡</span>
+      <div>
+        <div class="font-medium text-slate-200 group-hover:text-[var(--neon-primary)]">Ethnix Chat™</div>
+        <div class="text-sm text-slate-400">Click Here</div>
+      </div>
+    </a>
+    <a href="https://t.me/+kucTTxlFkhs4MDFl" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-[var(--neon-primary)] hover:bg-white/5 transition-all group">
+      <span class="text-xl">⚡</span>
+      <div>
+        <div class="font-medium text-slate-200 group-hover:text-[var(--neon-primary)]">Ethnix Collection™</div>
+        <div class="text-sm text-slate-400">Click Here</div>
+      </div>
+    </a>
+  </div>
+</div>
 
 <script>
 (() => {
@@ -338,7 +389,7 @@ declare(strict_types=1);
       const j = await r.json();
       if(!j.ok){
         if (j.error === 'BANNED') {
-          msg.textContent = j.message || "You're banned from BabaChecker";
+          msg.textContent = j.message || "You're banned from Ethnix";
         } else if (j.error === 'ALREADY') {
           msg.textContent = 'Already claimed for today.';
         } else {

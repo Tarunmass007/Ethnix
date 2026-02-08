@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 require_once __DIR__ . '/../../app/Bootstrap.php';
 require_once __DIR__ . '/../../app/Db.php';
@@ -33,7 +33,7 @@ $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : '')
 $currentCredits = (int)$userData['credits'];
 
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using babachecker.']);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.']);
     exit;
 }
 
@@ -365,7 +365,7 @@ if (stripos($response, '/complete') !== false) {
         "[ﾒ] <b>Country ➜</b> $country_info\n" .
         "━━━━━━━━━━━\n" .
         "[ﾒ] <b>Checked By ➜</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[ㇺ] <b>Dev ➜</b> babachecker";
+        "[ㇺ] <b>Dev ➜</b> Ethnix";
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }
@@ -378,7 +378,7 @@ if (stripos($response, '/complete') !== false) {
         "<b>Response ➜</b> $err 🎉\n" .
         "<b>Gateway ➜</b> Fastspring 10$\n" .
         "━━━━━━━━\n" .
-        "<b>Hit From ➜</b> <a href=\"https://babachecker.net\">babachecker</a>";
+        "<b>Hit From ➜</b> <a href=\"https://Ethnix.net\">Ethnix</a>";
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode([
         'status' => 'charge',
@@ -408,7 +408,7 @@ if (stripos($response, '/complete') !== false) {
         "[ﾒ] <b>Country ➜</b> $country_info\n" .
         "━━━━━━━━━━━\n" .
         "[ﾒ] <b>Checked By ➜</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[ㇺ] <b>Dev ➜</b> babachecker";
+        "[ㇺ] <b>Dev ➜</b> Ethnix";
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }

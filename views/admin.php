@@ -266,7 +266,7 @@ declare(strict_types=1);
         <div class="space-y-3">
           <label class="block">
             <span class="text-xs text-slate-400 font-bold uppercase">Bot Username (no @)</span>
-            <input id="sys_TELEGRAM_BOT_USERNAME" class="inp" placeholder="BabaCheckerRobott">
+            <input id="sys_TELEGRAM_BOT_USERNAME" class="inp" placeholder="EthnixRobot">
           </label>
            <label class="block">
             <span class="text-xs text-slate-400 font-bold uppercase">Bot Token</span>
@@ -666,7 +666,7 @@ declare(strict_types=1);
 
   // Export current page
   // Format:
-  // BABACHECKER-XXXXXXXXX-CREDITS
+  // ETHNIX-XXXXXXXXX-CREDITS
   // {credits} + { expiry date }
 // --- Export builder (REPLACE your old one) ---
     function buildExportText(items){

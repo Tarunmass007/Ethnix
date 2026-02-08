@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 declare(strict_types=1);
 require_once __DIR__ . '/../../app/Bootstrap.php';
 require_once __DIR__ . '/../../app/Db.php';
@@ -39,7 +39,7 @@ $currentKcoin = (int)$userData['kcoin'];
 
 // Restrict access for banned or free users
 if ($userStatus === 'BANNED') {
-    echo json_encode(['Response' => 'You are banned from using babachecker.', 'kcoin' => $currentKcoin]);
+    echo json_encode(['Response' => 'You are banned from using Ethnix.', 'kcoin' => $currentKcoin]);
     exit;
 }
 // if ($userStatus === 'FREE') {

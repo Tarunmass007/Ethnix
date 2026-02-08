@@ -197,7 +197,7 @@ if (isset($gates[$cmd])) {
 
 // 8. System Commands
 if ($cmd === '/start' || $cmd === '/help') {
-    $msg = "<b>Welcome to BabaChecker Bot!</b> \u{1F44B}\n\n" .
+    $msg = "<b>Welcome to Ethnix Bot!</b> \u{1F44B}\n\n" .
         "<b>Available Commands:</b>\n\n" .
         "<b>Single Card Checks:</b>\n" .
         "<code>/chk cc|mm|yy|cvv</code> - Stripe Charge\n" .

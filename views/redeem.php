@@ -27,7 +27,7 @@
 
       <div class="flex gap-2">
         <input id="rdCode" type="text" inputmode="latin"
-               placeholder="BABACHECKER-XXXX-YYYY-PREMIUM"
+               placeholder="ETHNIX-XXXX-YYYY-PREMIUM"
                class="w-full rounded-xl bg-slate-900/70 border border-white/10 px-4 py-3 outline-none focus:border-violet-400"
                autocomplete="off" autocapitalize="characters" />
         <button id="btnRedeem" class="rounded-xl bg-emerald-600/90 hover:bg-emerald-600 px-4 py-3 text-sm font-semibold">

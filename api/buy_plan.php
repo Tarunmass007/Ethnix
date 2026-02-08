@@ -15,7 +15,7 @@ $botToken = $_ENV['TELEGRAM_BOT_TOKEN'] ?? '';
 $announceChat = $_ENV['TELEGRAM_ANNOUNCE_CHAT_ID'] ?? '';
 $appDebug = filter_var($_ENV['APP_DEBUG'] ?? 'false', FILTER_VALIDATE_BOOLEAN)
   || (isset($_GET['debug']) && $_GET['debug'] === '1');
-$LOG_FILE = '/www/wwwroot/babachecker.com/storage/logs/buy_plan.log';
+$LOG_FILE = dirname(__DIR__) . '/storage/logs/buy_plan.log';
 @is_dir(dirname($LOG_FILE)) || @mkdir(dirname($LOG_FILE), 0775, true);
 function logerr(string $m)
 {
@@ -226,7 +226,7 @@ Receipt ID ➜ {$receiptFull}
 This is a receipt for your plan. Save it in a secure place. This will help you if anything goes wrong with your plan purchases.
 ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━
 Have a Good Day.
-➜ BabaChecker.com";
+➜ Ethnix.net";
       tg_send($botToken, $tgId, $dm, 'HTML');
     }
     if ($botToken !== '' && $announceChat !== '') {
@@ -322,7 +322,7 @@ Receipt ID ➜ {$receiptFull}
 This is a receipt for your credits purchase. Save it in a secure place. This will help you if anything goes wrong with your purchase.
 ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━
 Have a Good Day.
-➜ BabaChecker.com";
+➜ Ethnix.net";
       tg_send($botToken, $tgId, $dm, 'HTML');
     }
     if ($botToken !== '' && $announceChat !== '') {
@@ -414,7 +414,7 @@ Receipt ID ➜ {$receiptFull}
 This is a receipt for your killer credits purchase. Save it in a secure place. This will help you if anything goes wrong with your purchase.
 ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━ ━
 Have a Good Day.
-➜ BabaChecker.com";
+➜ Ethnix.net";
       tg_send($botToken, $tgId, $dm, 'HTML');
     }
     if ($botToken !== '' && $announceChat !== '') {

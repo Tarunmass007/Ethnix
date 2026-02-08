@@ -37,7 +37,7 @@ if (is_file($envFile)) {
 }
 
 // ---------- derive host / https ----------
-$host = $_SERVER['HTTP_HOST'] ?? ($_ENV['APP_HOST'] ?? 'babachecker.com');
+$host = $_SERVER['HTTP_HOST'] ?? ($_ENV['APP_HOST'] ?? 'ethnix.net');
 $root = preg_replace('/^www\./i', '', $host);
 $isHttps = (
     (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
@@ -84,7 +84,7 @@ session_name($SESSION_NAME);
 session_set_cookie_params([
     'lifetime' => $COOKIE_LIFETIME,
     'path' => '/',
-    'domain' => $COOKIE_DOMAIN, // .babachecker.com
+    'domain' => $COOKIE_DOMAIN, // .ethnix.net
     'secure' => $isHttps,
     'httponly' => true,
     'samesite' => $SAMESITE, // Lax | Strict | None(HTTPS)
