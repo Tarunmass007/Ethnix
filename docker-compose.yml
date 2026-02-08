@@ -1,0 +1,47 @@
+# Ethnix - Local Development
+# Run: docker compose up -d
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ethnix_local
+      MYSQL_DATABASE: ethnix
+      MYSQL_USER: ethnix
+      MYSQL_PASSWORD: ethnix_local
+    ports:
+      - "3306:3306"
+    volumes:
+      - ethnix_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      APP_ENV: local
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ethnix
+      DB_USER: ethnix
+      DB_PASS: ethnix_local
+      SESSION_COOKIE_DOMAIN: ""
+      SESSION_SAMESITE: Lax
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - ethnix_sessions:/app/_sessions
+      - ethnix_storage:/app/storage
+
+volumes:
+  ethnix_mysql_data:
+  ethnix_sessions:
+  ethnix_storage:

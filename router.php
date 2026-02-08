@@ -66,6 +66,18 @@ if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     return false;
 }
 
+// Route / when not logged in -> show login page
+if ($uri === '/' || $uri === '') {
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        require __DIR__ . '/app/Bootstrap.php';
+    }
+    if (empty($_SESSION['uid'])) {
+        routerLog("Unauthenticated at / - showing login page");
+        require __DIR__ . '/views/login.php';
+        return true;
+    }
+}
+
 // Route everything else to index.php
 routerLog("Routing to index.php");
 

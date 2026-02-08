@@ -14,8 +14,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 # Copy application
 COPY . .
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Ensure entrypoint is executable and has unix line endings
 RUN sed -i 's/\r$//' entrypoint.sh && chmod +x entrypoint.sh

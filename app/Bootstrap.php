@@ -22,6 +22,8 @@ if (is_file($envFile)) {
 
         [$k, $v] = explode('=', $t, 2);
         $k = trim($k);
+        // Prefer process env (Docker, etc.) over .env file
+        if (isset($_ENV[$k]) && $_ENV[$k] !== '') continue;
         // strip wrapping quotes & whitespace
         $v = trim($v);
         if ($v !== '' && ($v[0] === '"' || $v[0] === "'")) {
@@ -29,7 +31,6 @@ if (is_file($envFile)) {
             if (str_ends_with($v, $q))
                 $v = substr($v, 1, -1);
         }
-        // Prefer $_ENV/$_SERVER to share within app without OS env
         $_ENV[$k] = $v;
         $_SERVER[$k] = $v;
     // DO NOT call putenv(): it may be disabled on this host
