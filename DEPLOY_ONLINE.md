@@ -151,12 +151,15 @@
 
 ---
 
-## Step 8: Configure Telegram
+## Step 8: Configure Telegram (fix "Bot domain invalid")
 
 1. In Telegram, open [@BotFather](https://t.me/BotFather).
 2. Send `/setdomain`.
 3. Select your bot.
-4. Enter your Railway domain (e.g. `ethnix-production.up.railway.app`) without `https://`.
+4. Enter your Railway domain **exactly**: `ethnix-production.up.railway.app` (no `https://`).
+5. BotFather will confirm the domain is set.
+
+> **Test Login:** Before configuring Telegram, you can use **Login as Admin (Test)** on the login page to access the app. Set `ENABLE_TEST_LOGIN=true` in Variables (enabled by default). Disable it when Telegram is configured.
 
 ---
 
@@ -221,6 +224,7 @@
 
 | Issue | Solution |
 |-------|----------|
+| **Bot domain invalid** | In @BotFather: `/setdomain` → enter `ethnix-production.up.railway.app` (no https). Or use **Login as Admin (Test)** meanwhile. |
 | Connection closes | Check env vars and DB config |
 | Session not working | `SESSION_COOKIE_DOMAIN` empty; `SESSION_SAMESITE=Lax` |
 | DB connection fails | Ensure MySQL service is running and variables are correct |
@@ -250,6 +254,9 @@ TELEGRAM_BOT_TOKEN=your-token
 TELEGRAM_BOT_USERNAME=EthnixRobot
 TELEGRAM_ANNOUNCE_CHAT_ID=-1002552641928
 TELEGRAM_REQUIRE_ALLOWLIST=false
+
+# Testing: allows "Login as Admin (Test)" when Telegram domain not yet set (default: true)
+ENABLE_TEST_LOGIN=true
 ```
 
 ---

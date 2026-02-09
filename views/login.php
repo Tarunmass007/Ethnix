@@ -1,10 +1,13 @@
 <?php
 /**
  * Login page - shown when user visits / and is not authenticated
- * Local dev: use dev_login.php?user=admin&key=baba_secret_123
+ * Production: Telegram Login + Test Login fallback for setup/testing
  */
 $isLocal = ($_ENV['APP_ENV'] ?? 'production') === 'local';
+$enableTestLogin = filter_var($_ENV['ENABLE_TEST_LOGIN'] ?? 'true', FILTER_VALIDATE_BOOLEAN);
 $devLoginUrl = '/dev_login.php?user=admin&key=baba_secret_123';
+$currentHost = $_SERVER['HTTP_HOST'] ?? 'ethnix-production.up.railway.app';
+$botUsername = htmlspecialchars($_ENV['TELEGRAM_BOT_USERNAME'] ?? 'EthnixRobot', ENT_QUOTES);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,13 +50,31 @@ $devLoginUrl = '/dev_login.php?user=admin&key=baba_secret_123';
         <p class="text-xs text-slate-500 text-center">Uses dev_login.php with secret key</p>
       </div>
       <?php else: ?>
-      <!-- Production: Telegram Login -->
-      <script async src="https://telegram.org/js/telegram-widget.js?22" 
-              data-telegram-login="<?= htmlspecialchars($_ENV['TELEGRAM_BOT_USERNAME'] ?? 'EthnixRobot', ENT_QUOTES) ?>" 
-              data-size="large" 
-              data-auth-url="/telegram_auth.php" 
-              data-request-access="write"></script>
-      <p class="text-slate-400 text-sm text-center mt-4">Sign in with your Telegram account</p>
+      <!-- Production: Test Login (primary for Railway/testing before Telegram domain is set) -->
+      <?php if ($enableTestLogin): ?>
+      <div class="space-y-4">
+        <a href="<?= htmlspecialchars($devLoginUrl, ENT_QUOTES) ?>" 
+           class="block w-full py-3 px-4 rounded-xl font-semibold text-center transition-all hover:opacity-90"
+           style="background: var(--neon-primary); color: #000; box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);">
+          Login as Admin (Test)
+        </a>
+        <div class="relative flex items-center">
+          <div class="flex-grow border-t border-white/20"></div>
+          <span class="flex-shrink mx-3 text-xs text-slate-500">or</span>
+          <div class="flex-grow border-t border-white/20"></div>
+        </div>
+      </div>
+      <?php endif; ?>
+      <!-- Telegram Login -->
+      <div class="flex flex-col items-center">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                data-telegram-login="<?= $botUsername ?>" 
+                data-size="large" 
+                data-auth-url="/telegram_auth.php" 
+                data-request-access="write"></script>
+        <p class="text-slate-400 text-sm text-center mt-4">Sign in with your Telegram account</p>
+        <p class="text-xs text-slate-500 text-center mt-2">If you see "Bot domain invalid", set domain in @BotFather:<br><code class="text-emerald-400"><?= htmlspecialchars($currentHost, ENT_QUOTES) ?></code></p>
+      </div>
       <?php endif; ?>
 
       <div class="mt-8 pt-6 border-t border-white/10 text-center text-xs text-slate-500">
