@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/../api_init.php';
 require_once __DIR__ . '/../../app/Bootstrap.php'; // Adjusted path
 require_once __DIR__ . '/../../app/Db.php';
 require_once __DIR__ . '/../../app/Telegram.php';
@@ -230,7 +231,48 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $response = curl_exec($ch);
+$curlErr = curl_error($ch);
 curl_close($ch);
+
+// Handle curl/connection errors - return clean JSON (never HTML)
+if ($curlErr || $response === false) {
+    $new_credits = updateCredits($pdo, $uid, 0);
+    echo json_encode([
+        'status' => 'dead',
+        'Response' => 'Gateway unavailable. Try again.',
+        'Gateway' => 'Auto Stripe Auth V3',
+        'cc' => $cc1,
+        'credits' => $new_credits,
+        'brand' => $brand,
+        'card_type' => $card_type,
+        'level' => $level,
+        'issuer' => $issuer,
+        'country_info' => $country_info
+    ]);
+    exit;
+}
+
+// External API returned HTML/error page - sanitize for JSON
+if (is_string($response) && (strpos(trim($response), '<') === 0 || strpos($response, '<br') !== false)) {
+    $new_credits = updateCredits($pdo, $uid, 0);
+    echo json_encode([
+        'status' => 'dead',
+        'Response' => 'Gateway error. Try again later.',
+        'Gateway' => 'Auto Stripe Auth V3',
+        'cc' => $cc1,
+        'credits' => $new_credits,
+        'brand' => $brand,
+        'card_type' => $card_type,
+        'level' => $level,
+        'issuer' => $issuer,
+        'country_info' => $country_info
+    ]);
+    exit;
+}
+
+if (!is_string($response)) {
+    $response = '';
+}
 // Process response
 // $file = "woostripev3_responses.txt";
 // $handle = fopen($file, "a");
@@ -490,7 +532,11 @@ elseif (stripos($response, 'requires_action') !== false) {
         ]);
         exit;
     } else {
-        $err = $response;
+        // Sanitize: never put HTML in Response (causes JSON parse error on client)
+        $err = is_string($response) ? trim(strip_tags(substr($response, 0, 200))) : 'Unknown Response';
+        if ($err === '') {
+            $err = 'Unknown Response';
+        }
         $new_credits = updateCredits($pdo, $uid, 0);
         echo json_encode([
             'status' => 'dead',

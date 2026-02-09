@@ -4,9 +4,15 @@
  * This handles routing when using php -S command
  */
 
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// API endpoints must return pure JSON - suppress HTML errors
+$uri = urldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH));
+if (strpos($uri, '/api/') === 0) {
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '1');
+} else {
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+}
 
 // Health check endpoint (no session needed)
 if ($_SERVER['REQUEST_URI'] === '/health' || $_SERVER['REQUEST_URI'] === '/health.php') {
@@ -19,8 +25,6 @@ function routerLog($message) {
     error_log("[ROUTER] " . $message);
 }
 
-// Get the requested URI
-$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 routerLog("Request URI: " . $uri);
 
 // Explicitly execute auth endpoints (ensure they run, not routed to index.php)

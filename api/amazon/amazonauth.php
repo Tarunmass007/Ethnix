@@ -6,6 +6,7 @@ header('Pragma: no-cache');
 header('Accept-Encoding: gzip');
 header('Content-Type: application/json; charset=utf-8');
 // date_default_timezone_set('America/Sao_Paulo');
+require_once __DIR__ . '/../api_init.php';
 require_once __DIR__ . '/../../app/Bootstrap.php';
 require_once __DIR__ . '/../../app/Db.php';
 require_once __DIR__ . '/../../app/Telegram.php';

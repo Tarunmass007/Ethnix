@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/../api_init.php';
 require_once __DIR__ . '/../../app/Bootstrap.php'; // Adjusted to two levels up
 require_once __DIR__ . '/../../app/Db.php';
 require_once __DIR__ . '/../../app/Telegram.php';
@@ -207,6 +208,46 @@ $response = curl_exec($req);
 $curlErr = curl_error($req);
 $httpCode = (int)curl_getinfo($req, CURLINFO_HTTP_CODE);
 curl_close($req);
+
+// Handle curl/connection errors - return clean JSON (never HTML)
+if ($curlErr || $response === false) {
+    $newCredits = updateCredits($pdo, $uid, 0);
+    echo json_encode([
+        'status' => 'dead',
+        'Response' => 'Gateway unavailable. Try again.',
+        'Gateway' => ' 3DS LOOKUP',
+        'cc' => $cc1,
+        'credits' => $newCredits,
+        'brand' => $binInfo['brand'],
+        'card_type' => $binInfo['card_type'],
+        'level' => $binInfo['level'],
+        'issuer' => $binInfo['issuer'],
+        'country_info' => $binInfo['country_info']
+    ]);
+    exit;
+}
+
+// External API returned HTML/error page - sanitize for JSON
+if (is_string($response) && (strpos(trim($response), '<') === 0 || strpos($response, '<br') !== false)) {
+    $newCredits = updateCredits($pdo, $uid, 0);
+    echo json_encode([
+        'status' => 'dead',
+        'Response' => 'Gateway error. Try again later.',
+        'Gateway' => ' 3DS LOOKUP',
+        'cc' => $cc1,
+        'credits' => $newCredits,
+        'brand' => $binInfo['brand'],
+        'card_type' => $binInfo['card_type'],
+        'level' => $binInfo['level'],
+        'issuer' => $binInfo['issuer'],
+        'country_info' => $binInfo['country_info']
+    ]);
+    exit;
+}
+
+if (!is_string($response)) {
+    $response = '';
+}
 // $file = "payflow_responses.txt";
 // $handle = fopen($file, "a");
 // $content = "cc = $cc1\nresponse = $response\n\n";
@@ -405,7 +446,11 @@ if (stripos($response, 'authenticate_successful') !== false)  {
     ]);
     exit;
 } else {
-    $err = $response;
+    // Sanitize: never put HTML in Response (causes JSON parse error on client)
+    $err = is_string($response) ? trim(strip_tags(substr($response, 0, 200))) : 'Unknown Response';
+    if ($err === '') {
+        $err = 'Unknown Response';
+    }
     $newCredits = updateCredits($pdo, $uid, 0); // No credit deduction for Dead
     echo json_encode([
         'status' => 'dead',

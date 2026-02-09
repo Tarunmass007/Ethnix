@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/../api_init.php';
 require_once __DIR__ . '/../../app/Bootstrap.php'; // Adjusted to two levels up
 require_once __DIR__ . '/../../app/Db.php';
 require_once __DIR__ . '/../../app/Telegram.php';
