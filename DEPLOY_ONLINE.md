@@ -123,7 +123,9 @@
 
 ---
 
-## Step 6: Initialize Database
+## Step 6: Initialize Database (Required for Test Login)
+
+**You must run this or "Login as Admin (Test)" will fail** (redirects with "no_admin" error).
 
 1. Open your app service → **Deployments**.
 2. Click the latest deployment.

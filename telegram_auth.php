@@ -195,9 +195,19 @@ if ($announceChat !== '') {
     }
     Telegram::sendMessage($botToken, $announceChat, $text, 'HTML'); // ignore errors
 }
-/* Redirect */
+/* Persist session before redirect (critical for Railway/proxy) */
+session_write_close();
+
+/* Redirect with absolute URL (fixes Railway/proxy issues) */
 $next = '/app/dashboard';
 if (!empty($_GET['state']) && is_string($_GET['state']) && preg_match('~^/app(?:/[\w\-]+)?$~', $_GET['state'])) {
     $next = $_GET['state'];
 }
-App\Security::safeRedirect($next, '/app/dashboard');
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$base = $isHttps ? 'https' : 'http';
+$redirectUrl = $base . '://' . $host . $next;
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Location: ' . $redirectUrl, true, 303);
+exit;

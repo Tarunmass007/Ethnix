@@ -23,6 +23,19 @@ function routerLog($message) {
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 routerLog("Request URI: " . $uri);
 
+// Explicitly execute auth endpoints (ensure they run, not routed to index.php)
+$authPaths = ['/dev_login.php', '/telegram_auth.php', '/logout.php', '/setup_db.php'];
+$pathOnly = rtrim(explode('?', $uri)[0], '/');
+if (in_array($uri, $authPaths, true) || in_array($pathOnly, $authPaths, true)) {
+    routerLog("Executing auth: " . $uri);
+    $file = __DIR__ . $uri;
+    if (is_file($file)) {
+        $_SERVER['SCRIPT_NAME'] = $uri;
+        require $file;
+        return true;
+    }
+}
+
 // Serve static files directly
 if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     $filePath = __DIR__ . $uri;

@@ -4,6 +4,13 @@
 
 declare(strict_types=1);
 
+$isWeb = (PHP_SAPI !== 'cli');
+if ($isWeb) {
+    header('Content-Type: text/html; charset=utf-8');
+    echo '<!DOCTYPE html><html><head><title>Setup DB</title><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="background:#050505;color:#e5e7eb;font-family:monospace;padding:2rem;max-width:600px;">';
+    echo '<h2 style="color:#39ff14;">Database Setup</h2><pre>';
+}
+
 require_once __DIR__ . '/app/Bootstrap.php';
 
 echo "Setting up database...\n";
@@ -143,5 +150,15 @@ try {
     }
 
 } catch (PDOException $e) {
-    die("DB Setup Error: " . $e->getMessage() . "\n");
+    if ($isWeb) {
+        echo '</pre><p style="color:#ef4444;">' . htmlspecialchars($e->getMessage()) . '</p>';
+        echo '<p><a href="/" style="color:#39ff14;">← Back to Login</a></p></body></html>';
+    } else {
+        die("DB Setup Error: " . $e->getMessage() . "\n");
+    }
+    exit;
+}
+
+if ($isWeb) {
+    echo '</pre><p><a href="/" style="color:#39ff14;text-decoration:underline;">← Back to Login</a></p></body></html>';
 }

@@ -34,7 +34,15 @@ $botUsername = htmlspecialchars($_ENV['TELEGRAM_BOT_USERNAME'] ?? 'EthnixRobot',
 
       <?php if (!empty($_GET['error'])): ?>
       <div class="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-sm">
-        <?= htmlspecialchars($_GET['error'] === 'unauthorized' ? 'Authorization required. Please join our Telegram group.' : 'Login failed.', ENT_QUOTES) ?>
+        <?php
+        $err = $_GET['error'];
+        $msg = match($err) {
+          'unauthorized' => 'Authorization required. Please join our Telegram group.',
+          'no_admin' => 'Admin user not found. <a href="/setup_db.php" class="underline font-medium text-emerald-400 hover:text-emerald-300">Run setup_db.php</a> to initialize the database (one-time).',
+          default => 'Login failed.',
+        };
+        echo $err === 'no_admin' ? $msg : htmlspecialchars($msg, ENT_QUOTES);
+        ?>
       </div>
       <?php endif; ?>
 

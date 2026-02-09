@@ -37,7 +37,7 @@ if ($user) {
     if (session_status() === PHP_SESSION_ACTIVE) {
         session_destroy();
     }
-    
+
     // 2. Start new clean session
     session_start();
     session_regenerate_id(true);
@@ -47,9 +47,26 @@ if ($user) {
     $_SESSION['uname'] = $user['username'];
     $_SESSION['last_login'] = time();
 
-    // 4. Redirect
-    header("Location: /app/dashboard");
+    // 4. Persist session before redirect (critical for Railway/proxy)
+    session_write_close();
+
+    // 5. Build absolute redirect URL (fixes Railway/proxy issues)
+    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $base = $isHttps ? 'https' : 'http';
+    $redirectUrl = "{$base}://{$host}/app/dashboard";
+
+    // 6. Redirect with no-cache to prevent stale redirects
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Location: ' . $redirectUrl, true, 303);
     exit;
 } else {
-    echo "User '{$username}' not found in database. Please run setup_db.php again.";
+    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $base = $isHttps ? 'https' : 'http';
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Location: ' . $base . '://' . $host . '/?error=no_admin', true, 303);
+    exit;
 }

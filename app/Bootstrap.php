@@ -48,15 +48,14 @@ $isHttps = (
 // ---------- session knobs (env overrides) ----------
 $SESSION_NAME = $_ENV['SESSION_NAME'] ?? 'BABACHECKERSESSID';
 
-// For Railway: use empty domain if SESSION_COOKIE_DOMAIN is not set
-// This allows cookies to work on Railway's *.up.railway.app domains
+// For Railway: use empty domain so cookies work on *.up.railway.app
 $COOKIE_DOMAIN = $_ENV['SESSION_COOKIE_DOMAIN'] ?? '';
+$requestHost = $_SERVER['HTTP_HOST'] ?? '';
 
-// If we have a custom domain (not Railway), use it
-if (empty($COOKIE_DOMAIN) && !empty($_ENV['APP_HOST'])) {
-    $appHost = $_ENV['APP_HOST'];
-    // Only set domain cookie for custom domains, not Railway domains
-    if (!str_contains($appHost, 'railway.app')) {
+// Only set domain cookie for custom domains; Railway and localhost must use empty domain
+if (empty($COOKIE_DOMAIN) && !str_contains($requestHost, 'railway.app') && !in_array($requestHost, ['localhost', '127.0.0.1'], true)) {
+    $appHost = $_ENV['APP_HOST'] ?? $requestHost;
+    if (!empty($appHost) && !str_contains($appHost, 'railway.app')) {
         $COOKIE_DOMAIN = '.' . preg_replace('/^www\./i', '', $appHost);
     }
 }
@@ -70,6 +69,13 @@ $IDLE_MAX = (int)($_ENV['SESSION_IDLE_MAX'] ?? 7200);
 $customSessPath = __DIR__ . '/../_sessions';
 if (!is_dir($customSessPath)) {
     @mkdir($customSessPath, 0700, true);
+}
+// Fallback to temp if _sessions isn't writable (e.g. read-only filesystem on Railway)
+if (!is_writable($customSessPath)) {
+    $customSessPath = sys_get_temp_dir() . '/ethnix_sessions';
+    if (!is_dir($customSessPath)) {
+        @mkdir($customSessPath, 0700, true);
+    }
 }
 
 // ---------- INI + cookie params ----------
